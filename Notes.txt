@@ -1,0 +1,42 @@
+1- comment github
+    git config --global user.name
+    git config --global user.email
+    untracked file(مش متشاف لسه), modified file (متشاف وحصل عليه تعديل)
+2- هحدد الtheme اللي هشتغل عليه
+    adminTheme-master/html/rtl/vertical-menu-template/dashboard-ecommerce.html
+3- divide welcome page to 
+    - views > layouts > dashboard > footer, head, header, scripts, sidebar, app.blade.php
+    - views > dashboard > welcome.blade.php
+        - Ecommerce-Pro\resources\views\Dashboard\welcome.blade.php
+            @extends('layouts.dashboard.app')
+            @section('title', 'Welcome')
+            @section('content')
+            @endsection
+
+        - Ecommerce-Pro\resources\views\layouts\dashboard\app.blade.php
+            <!DOCTYPE html>
+            <html class="loading" lang="en" data-textdirection="ltr">
+            <head>
+                @include('layouts.dashboard._head')
+            </head>
+            <body class="vertical-layout vertical-menu-modern 2-columns menu-expanded fixed-navbar"
+            data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
+                @include('layouts.dashboard._header')
+                @include('layouts.dashboard._sidebar')
+                @yield('content')
+                @include('layouts.dashboard._footer')
+                @include('layouts.dashboard._scripts')
+            </body>
+            </html>
+
+        - Ecommerce-Pro\resources\views\layouts\dashboard\_header.blade.php
+            <li class="dropdown dropdown-language nav-item"><a class="dropdown-toggle nav-link" id="dropdown-flag" href="#" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false"><i class="flag-icon flag-icon-gb"></i><span class="selected-language"></span></a>
+              <div class="dropdown-menu" aria-labelledby="dropdown-flag">
+                @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                  <a class="dropdown-item" rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                    <i class="flag-icon @if($localeCode == 'en') flag-icon-gb @else flag-icon-ar @endif"></i> {{ $properties['native'] }}
+                  </a>
+                @endforeach
+              </div>
+            </li>
